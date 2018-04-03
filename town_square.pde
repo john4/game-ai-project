@@ -3,4 +3,9 @@ class TownSquare extends Building {
     super(initialLocation, "TownSquare");
     this.c = new int[]{255,215,0};
   }
+
+  @Override
+  void clickAction() {
+    buildingInterface.isVisible = !buildingInterface.isVisible;
+  }
 }

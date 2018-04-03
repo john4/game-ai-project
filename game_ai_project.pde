@@ -11,6 +11,9 @@ GameState state;
 UserInterface userInterface;
 boolean showControlPanel = true;
 final int CELL_SIZE = 10;
+Panel buildingInterface;
+boolean placingBuilding = false;
+String buildingName = "";
 
 // temp
 PotentialPathNode path;
@@ -31,6 +34,9 @@ void draw() {
   state.step();
   userInterface.draw(state.humanPlayer);
   path.draw();
+  if(placingBuilding) {
+    print("PLACING BUILDING" + buildingName + "\n\n\n");
+  }
 }
 
 void mouseClicked() {
@@ -45,5 +51,9 @@ void mouseClicked() {
 
   for(Panel panel: userInterface.panels) {
     panel.click();
+  }
+
+  for(Building building: state.humanPlayer.buildings) {
+    building.click();
   }
 }

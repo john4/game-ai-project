@@ -15,7 +15,9 @@ class UserInterface {
     targets.add(new PopulationTarget());
     targets.add(new SoldierTarget());
 
-    panels.add(new Panel(200, boardMap.numCols*boardMap.gridsize-200,boardMap.numRows*boardMap.gridsize-400, targets));
+    buildingInterface = new BuildingPanel(200, boardMap.numCols*boardMap.gridsize-200,boardMap.numRows*boardMap.gridsize-400);
+    panels.add(buildingInterface);
+    panels.add(new DialPanel(200, boardMap.numCols*boardMap.gridsize-200,boardMap.numRows*boardMap.gridsize-400, targets));
   }
 
   void draw(PlayerState state) {
