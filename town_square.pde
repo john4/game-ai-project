@@ -7,5 +7,6 @@ class TownSquare extends Building {
   @Override
   void clickAction() {
     buildingInterface.isVisible = !buildingInterface.isVisible;
+    clickDelay = 180;
   }
 }
