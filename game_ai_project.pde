@@ -11,7 +11,10 @@ GameState state;
 UserInterface userInterface;
 boolean showControlPanel = true;
 final int CELL_SIZE = 10;
-
+Panel buildingInterface;
+boolean placingBuilding = false;
+String buildingName = "";
+int clickDelay = 0;
 // temp
 PotentialPathNode path;
 
@@ -31,6 +34,13 @@ void draw() {
   state.step();
   userInterface.draw(state.humanPlayer);
   path.draw();
+  if(placingBuilding && clickDelay == 0) {
+    Building potentialBuilding = generateBuilding();
+    potentialBuilding.draw();
+  }
+  if(clickDelay > 0) {
+    clickDelay--;
+  }
 }
 
 void mouseClicked() {
@@ -45,5 +55,33 @@ void mouseClicked() {
 
   for(Panel panel: userInterface.panels) {
     panel.click();
+  }
+
+  for(Building building: state.humanPlayer.buildings) {
+    building.click();
+  }
+
+   if (clickDelay == 0 && placingBuilding) {
+     state.humanPlayer.buildings.add(generateBuilding());
+     placingBuilding = false;
+   }
+}
+
+Building generateBuilding() {
+  int cellSize = boardMap.gridsize;
+  int x = mouseX/cellSize;
+  int y = mouseY/cellSize;
+  Cell mouseLocation = new Cell(x, y, 1, boardMap.gridsize);
+  switch(buildingName) {
+    case "Farm":
+      return new Farm(mouseLocation);
+    case "Hovel":
+      return new Hovel(mouseLocation);
+    case "Sawmill":
+      return new Sawmill(mouseLocation);
+    case "Stockpile":
+      return new Stockpile(mouseLocation);
+    default:
+      return null;
   }
 }

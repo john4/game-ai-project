@@ -16,4 +16,14 @@ abstract class Building extends WorldlyObject {
   String getName() {
     return this.name;
   }
+
+  void click() {
+    if(this.loc.isIn(mouseX,mouseY)) {
+      clickAction();
+    }
+  }
+
+  void clickAction() {
+    print("Clicked in building");
+  }
 }
